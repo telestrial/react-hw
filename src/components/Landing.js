@@ -37,7 +37,11 @@ const Landing = () => {
       <Grid
         item
         xs={6}
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        sx={{
+          display: { md: "flex" },
+          justifyContent: "center",
+          alignItems: "center"
+        }}
       >
         <img src="person.png" alt="Person" />
       </Grid>
