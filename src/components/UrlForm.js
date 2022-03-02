@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 
-import { Button, Input } from "@mui/material";
+import { Box, Button, Input } from "@mui/material";
 
 const CREATE_LINK = gql`
   mutation($url: String!, $slug: String!) {
@@ -23,8 +23,12 @@ const CHECK_LINK = gql`
 const UrlForm = () => {
   const [urlValue, setUrlValue] = useState("");
   const [slugValue, setSlugValue] = useState("");
-  const [addLink] = useMutation(CREATE_LINK);
-  const { data, loading, error } = useQuery(CHECK_LINK);
+  const [slugInUse, setSlugInUse] = useState(false);
+
+  const [addLink, { data: mutationData }] = useMutation(CREATE_LINK);
+  const { data: queryData } = useQuery(CHECK_LINK, {
+    variables: { slug: slugValue }
+  });
 
   const onUrlChange = (event) => {
     setUrlValue(event.target.value);
@@ -35,14 +39,22 @@ const UrlForm = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+    setSlugInUse(false);
 
     try {
-      const addedLink = await addLink({
-        variables: {
-          url: urlValue,
-          slug: slugValue
-        }
-      });
+      const freeLink = queryData;
+      console.log(freeLink);
+      if (freeLink.link === null) {
+        const addedLink = await addLink({
+          variables: {
+            url: urlValue,
+            slug: slugValue
+          }
+        });
+        console.log(addedLink);
+      } else {
+        setSlugInUse(true);
+      }
     } catch (e) {
       // Something went wrong logic
     }
@@ -76,10 +88,31 @@ const UrlForm = () => {
           borderRadius: "5px",
           margin: ".5rem"
         }}
+        error={slugInUse}
       />
       <Button variant="contained" type="submit">
         Shorten URL
       </Button>
+      {slugInUse && (
+        <Box
+          sx={{
+            margin: ".2rem",
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
+          <Box
+            sx={{
+              backgroundColor: "white",
+              padding: ".2rem 1rem",
+              borderRadius: "3px"
+            }}
+          >
+            That slug is in use. Try something else!
+          </Box>
+        </Box>
+      )}
     </form>
   );
 };
