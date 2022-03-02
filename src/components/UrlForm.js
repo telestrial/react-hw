@@ -61,59 +61,67 @@ const UrlForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler}>
-      <Input
-        onChange={onUrlChange}
-        value={urlValue}
-        id="url"
-        aria-describedby="url to shorten"
-        placeholder="Make your links shorter"
-        sx={{
-          backgroundColor: "white",
-          padding: ".2rem 1rem",
-          borderRadius: "5px",
-          margin: ".5rem"
-        }}
-        required
-      />
-      <Input
-        onChange={onSlugChange}
-        value={slugValue}
-        id="slug"
-        aria-describedby="slug"
-        placeholder="Custom Slug (Optional)"
-        sx={{
-          backgroundColor: "white",
-          padding: ".2rem 1rem",
-          borderRadius: "5px",
-          margin: ".5rem"
-        }}
-        error={slugInUse}
-      />
-      <Button variant="contained" type="submit">
-        Shorten URL
-      </Button>
-      {slugInUse && (
-        <Box
+    <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}>
+      <form onSubmit={onSubmitHandler}>
+        <Input
+          onChange={onUrlChange}
+          value={urlValue}
+          id="url"
+          aria-describedby="url to shorten"
+          placeholder="Make your links shorter"
           sx={{
-            margin: ".2rem",
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "center"
+            backgroundColor: "white",
+            padding: ".2rem 1rem",
+            borderRadius: "5px",
+            margin: { xs: ".2rem", md: ".5rem" },
+            width: { xs: "100%", md: "30%" }
           }}
+          required
+        />
+        <Input
+          onChange={onSlugChange}
+          value={slugValue}
+          id="slug"
+          aria-describedby="slug"
+          placeholder="Custom Slug (Optional)"
+          sx={{
+            backgroundColor: "white",
+            padding: ".2rem 1rem",
+            borderRadius: "5px",
+            margin: { xs: ".2rem", md: "1rem" },
+            width: { xs: "100%", md: "30%" }
+          }}
+          error={slugInUse}
+        />
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ margin: { xs: ".2rem", md: "1rem" } }}
         >
+          Shorten URL
+        </Button>
+        {slugInUse && (
           <Box
             sx={{
-              backgroundColor: "white",
-              padding: ".2rem 1rem",
-              borderRadius: "3px"
+              margin: ".2rem",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center"
             }}
           >
-            That slug is in use. Try something else!
+            <Box
+              sx={{
+                backgroundColor: "white",
+                padding: ".2rem 1rem",
+                borderRadius: "3px"
+              }}
+            >
+              That slug is in use. Try something else!
+            </Box>
           </Box>
-        </Box>
-      )}
-    </form>
+        )}
+      </form>
+    </Box>
   );
 };
 

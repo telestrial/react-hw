@@ -10,7 +10,7 @@ const Header = () => {
         <Box sx={{ margin: "0 3.5rem", lineHeight: 0 }}>
           <img src="/logo.png" alt="Rebrandify logo" />
         </Box>
-        <Box sx={{ display: "flex", flexGrow: 1 }}>
+        <Box sx={{ display: { xs: "none", md: "flex" }, flexGrow: 1 }}>
           <Typography
             sx={{ color: "#A0A0A0", fontWeight: 600, marginLeft: "2rem" }}
           >
@@ -22,9 +22,13 @@ const Header = () => {
             Pricing
           </Typography>
         </Box>
-        <Box>
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <Typography
-            sx={{ color: "#A0A0A0", fontWeight: 600, marginRight: "3.5rem" }}
+            sx={{
+              color: "#A0A0A0",
+              fontWeight: 600,
+              marginRight: "3.5rem"
+            }}
           >
             Login
           </Typography>
