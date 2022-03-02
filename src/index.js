@@ -1,11 +1,6 @@
 import ReactDOM from "react-dom";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { CssBaseline } from "@mui/material";
 
 import App from "./App";
 
@@ -18,6 +13,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
+    <CssBaseline />
     <App />
   </ApolloProvider>,
   rootElement
