@@ -1,27 +1,20 @@
-import { Button } from "@mui/material";
-import { useQuery, gql } from "@apollo/client";
+import { Container } from "@mui/material";
 
-const GET_USER = gql`
-  query User($userId: Int = 1) {
-    user(id: $userId) {
-      name
-      email
-    }
-  }
-`;
+import Header from "./components/Header";
+import Landing from "./components/Landing";
+import UrlForm from "./components/UrlForm";
+import LinkList from "./components/LinkList";
 
 const App = () => {
-  const { loading, error, data } = useQuery(GET_USER);
-
-  if (loading) return <p>Loading..</p>;
-  if (error) return <p>Error!</p>;
-
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <Button variant="outlined">Check</Button>
-      <div>{data && `${data.user.name}, ${data.user.email}`}</div>
-    </div>
+    <>
+      <Container maxWidth="xl">
+        <Header />
+        <Landing />
+      </Container>
+      <UrlForm />
+      <LinkList />
+    </>
   );
 };
 
