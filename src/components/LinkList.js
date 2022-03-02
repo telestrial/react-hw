@@ -1,5 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 
+import { Box, Container } from "@mui/material";
+
 const ALL_LINKS = gql`
   query allLinks {
     allLinks {
@@ -16,16 +18,26 @@ const LinkList = () => {
   if (error) return <p>Error!</p>;
 
   return (
-    <div>
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
       {data &&
         data.allLinks.map((link) => {
           return (
-            <div>
-              {link.url}, {link.slug}
-            </div>
+            <Box key={link.slug} sx={{ margin: ".3rem" }}>
+              <a href={`${link.url}`}>{link.url}</a> &#8594;{" "}
+              <a href={`https://hdwy.link/${link.slug}`}>
+                https://hdwy.link/{link.slug}
+              </a>
+            </Box>
           );
         })}
-    </div>
+    </Container>
   );
 };
 
