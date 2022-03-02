@@ -38,7 +38,7 @@ const Landing = () => {
         item
         xs={6}
         sx={{
-          display: { md: "flex" },
+          display: { sm: "none", md: "flex" },
           justifyContent: "center",
           alignItems: "center"
         }}
