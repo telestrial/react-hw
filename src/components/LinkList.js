@@ -1,6 +1,8 @@
 import { useQuery, gql } from "@apollo/client";
 
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
+
+import LinkedListItem from "./LinkListItem";
 
 const ALL_LINKS = gql`
   query allLinks {
@@ -28,14 +30,7 @@ const LinkList = () => {
     >
       {data &&
         data.allLinks.map((link) => {
-          return (
-            <Box key={link.slug} sx={{ margin: ".3rem" }}>
-              <a href={`${link.url}`}>{link.url}</a> &#8594;{" "}
-              <a href={`https://hdwy.link/${link.slug}`}>
-                https://hdwy.link/{link.slug}
-              </a>
-            </Box>
-          );
+          return <LinkedListItem key={link.slug} link={link} />;
         })}
     </Container>
   );
