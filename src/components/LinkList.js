@@ -16,9 +16,6 @@ const ALL_LINKS = gql`
 const LinkList = () => {
   const { loading, error, data } = useQuery(ALL_LINKS);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
-
   return (
     <Container
       sx={{
@@ -32,6 +29,8 @@ const LinkList = () => {
         data.allLinks.map((link) => {
           return <LinkedListItem key={link.slug} link={link} />;
         })}
+      {loading && <p>Loading previous links...</p>}
+      {error && <p>Something went wrong!</p>}
     </Container>
   );
 };
