@@ -3,6 +3,8 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 
 import { Box, Button, Input } from "@mui/material";
 
+import CopyLink from "./CopyLink";
+
 const CREATE_LINK = gql`
   mutation($url: String!, $slug: String!) {
     createLink(url: $url, slug: $slug) {
@@ -24,6 +26,7 @@ const UrlForm = () => {
   const [urlValue, setUrlValue] = useState("");
   const [slugValue, setSlugValue] = useState("");
   const [slugInUse, setSlugInUse] = useState(false);
+  const [lastUrl, setLastUrl] = useState(null);
 
   const [addLink, { data: mutationData }] = useMutation(CREATE_LINK);
   const { data: queryData } = useQuery(CHECK_LINK, {
@@ -51,7 +54,11 @@ const UrlForm = () => {
             slug: slugValue
           }
         });
-        console.log(addedLink);
+        console.log(addedLink.data.createLink.slug);
+        const newSlug = slugValue ? slugValue : addedLink.data.createLink.slug;
+        setLastUrl(`https://hdwl.link/` + newSlug);
+        setUrlValue("");
+        setSlugValue("");
       } else {
         setSlugInUse(true);
       }
@@ -61,66 +68,71 @@ const UrlForm = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}>
-      <form onSubmit={onSubmitHandler}>
-        <Input
-          onChange={onUrlChange}
-          value={urlValue}
-          id="url"
-          aria-describedby="url to shorten"
-          placeholder="Make your links shorter"
-          sx={{
-            backgroundColor: "white",
-            padding: ".2rem 1rem",
-            borderRadius: "5px",
-            margin: { xs: ".2rem", md: ".5rem" },
-            width: { xs: "100%", md: "30%" }
-          }}
-          required
-        />
-        <Input
-          onChange={onSlugChange}
-          value={slugValue}
-          id="slug"
-          aria-describedby="slug"
-          placeholder="Custom Slug (Optional)"
-          sx={{
-            backgroundColor: "white",
-            padding: ".2rem 1rem",
-            borderRadius: "5px",
-            margin: { xs: ".2rem", md: "1rem" },
-            width: { xs: "100%", md: "30%" }
-          }}
-          error={slugInUse}
-        />
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{ margin: { xs: ".2rem", md: "1rem" } }}
-        >
-          Shorten URL
-        </Button>
-        {slugInUse && (
-          <Box
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        {lastUrl && <CopyLink link={lastUrl} />}
+      </Box>
+      <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}>
+        <form onSubmit={onSubmitHandler}>
+          <Input
+            onChange={onUrlChange}
+            value={urlValue}
+            id="url"
+            aria-describedby="url to shorten"
+            placeholder="Make your links shorter"
             sx={{
-              margin: ".2rem",
-              textAlign: "center",
-              display: "flex",
-              justifyContent: "center"
+              backgroundColor: "white",
+              padding: ".2rem 1rem",
+              borderRadius: "5px",
+              margin: { xs: ".2rem", md: ".5rem" },
+              width: { xs: "100%", md: "30%" }
             }}
+            required
+          />
+          <Input
+            onChange={onSlugChange}
+            value={slugValue}
+            id="slug"
+            aria-describedby="slug"
+            placeholder="Custom Slug (Optional)"
+            sx={{
+              backgroundColor: "white",
+              padding: ".2rem 1rem",
+              borderRadius: "5px",
+              margin: { xs: ".2rem", md: "1rem" },
+              width: { xs: "100%", md: "30%" }
+            }}
+            error={slugInUse}
+          />
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ margin: { xs: ".2rem", md: "1rem" } }}
           >
+            Shorten URL
+          </Button>
+          {slugInUse && (
             <Box
               sx={{
-                backgroundColor: "white",
-                padding: ".2rem 1rem",
-                borderRadius: "3px"
+                margin: ".2rem",
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center"
               }}
             >
-              That slug is in use. Try something else!
+              <Box
+                sx={{
+                  backgroundColor: "white",
+                  padding: ".2rem 1rem",
+                  borderRadius: "3px"
+                }}
+              >
+                That slug is in use. Try something else!
+              </Box>
             </Box>
-          </Box>
-        )}
-      </form>
+          )}
+        </form>
+      </Box>
     </Box>
   );
 };
