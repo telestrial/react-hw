@@ -11,7 +11,8 @@ const Landing = () => {
           padding: "3rem",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "flex-end"
+          justifyContent: "center",
+          alignContent: "center"
         }}
       >
         <Box>
