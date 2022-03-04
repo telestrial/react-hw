@@ -34,7 +34,6 @@ const UrlForm = () => {
     // A better abstraction here might be a custom hook
     try {
       const freeLink = queryData;
-      console.log(freeLink);
       if (freeLink.link === null) {
         const addedLink = await addLink({
           variables: {
