@@ -4,14 +4,7 @@ import { Container } from "@mui/material";
 
 import LinkedListItem from "./LinkListItem";
 
-const ALL_LINKS = gql`
-  query allLinks {
-    allLinks {
-      url
-      slug
-    }
-  }
-`;
+import { ALL_LINKS } from "../queries";
 
 const LinkList = () => {
   const { loading, error, data } = useQuery(ALL_LINKS);

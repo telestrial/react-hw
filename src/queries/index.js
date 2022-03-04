@@ -16,3 +16,12 @@ export const CHECK_LINK = gql`
     }
   }
 `;
+
+export const ALL_LINKS = gql`
+  query allLinks {
+    allLinks {
+      url
+      slug
+    }
+  }
+`;
