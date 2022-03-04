@@ -9,7 +9,7 @@ const UrlFormSection = ({ children }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "3rem"
+        padding: "2rem"
       }}
     >
       {children}

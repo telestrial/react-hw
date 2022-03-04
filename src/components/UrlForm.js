@@ -65,7 +65,14 @@ const UrlForm = () => {
         {/* Displaying a created link */}
         {lastUrl && <CopyLink link={lastUrl} />}
       </Box>
-      <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          alignContent: "center",
+          justifyContent: "center"
+        }}
+      >
         <form onSubmit={onSubmitHandler}>
           {/* Would be good to make these more generic, but I felt
               I'd be passing everything except style */}
@@ -80,7 +87,7 @@ const UrlForm = () => {
               padding: ".2rem 1rem",
               borderRadius: "5px",
               margin: { xs: ".2rem", md: ".5rem" },
-              width: { xs: "100%", md: "30%" }
+              width: { xs: "100%", md: "34%" }
             }}
             required
           />
@@ -95,14 +102,14 @@ const UrlForm = () => {
               padding: ".2rem 1rem",
               borderRadius: "5px",
               margin: { xs: ".2rem", md: ".5rem" },
-              width: { xs: "100%", md: "30%" }
+              width: { xs: "100%", md: "34%" }
             }}
             error={slugInUse}
           />
           <Button
             variant="contained"
             type="submit"
-            sx={{ margin: { xs: ".2rem", md: "1rem" } }}
+            sx={{ margin: { xs: ".2rem", md: ".5rem" } }}
           >
             Shorten URL
           </Button>
