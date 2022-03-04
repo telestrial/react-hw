@@ -1,23 +1,13 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 import { Container } from "@mui/material";
 
 import LinkedListItem from "./LinkListItem";
 
-const ALL_LINKS = gql`
-  query allLinks {
-    allLinks {
-      url
-      slug
-    }
-  }
-`;
+import { ALL_LINKS } from "../queries";
 
 const LinkList = () => {
   const { loading, error, data } = useQuery(ALL_LINKS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
 
   return (
     <Container
@@ -32,6 +22,8 @@ const LinkList = () => {
         data.allLinks.map((link) => {
           return <LinkedListItem key={link.slug} link={link} />;
         })}
+      {loading && <p>Loading previous links...</p>}
+      {error && <p>Something went wrong!</p>}
     </Container>
   );
 };

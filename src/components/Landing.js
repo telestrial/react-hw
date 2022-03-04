@@ -5,16 +5,18 @@ const Landing = () => {
     <Grid container spacing={1} padding="4rem">
       <Grid
         item
-        xs={6}
+        md={6}
+        sm={12}
         sx={{
           padding: "3rem",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "flex-end"
+          justifyContent: "center",
+          alignContent: "center"
         }}
       >
         <Box>
-          <Typography variant="h3" fontWeight="600">
+          <Typography variant="h3" fontWeight="700">
             Your Brand on Your Links
           </Typography>
           <Typography variant="p">
@@ -36,9 +38,10 @@ const Landing = () => {
       </Grid>
       <Grid
         item
-        xs={6}
+        md={6}
+        sm={0}
         sx={{
-          display: { sm: "none", md: "flex" },
+          display: { xs: "none", md: "flex" },
           justifyContent: "center",
           alignItems: "center"
         }}
